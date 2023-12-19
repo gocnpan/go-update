@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/inconshreveable/go-update/internal/osext"
+	"github.com/gocnpan/go-update/internal/osext"
 )
 
 var (
@@ -117,6 +117,9 @@ func Apply(update io.Reader, opts Options) error {
 	if err != nil {
 		return err
 	}
+
+	// don't call fp.Sync().system power off ,file will lost
+	fp.Sync()
 
 	// if we don't call fp.Close(), windows won't let us move the new executable
 	// because the file will still be "in use"
